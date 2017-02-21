@@ -97,6 +97,7 @@ answer: SELECT FirstName ||' '|| LastName as FullName, InvoiceId, InvoiceDate, B
 1. `sales_agents.sql`: Provide a query showing only the Employees who are Sales Agents.
 answer:  SELECT * FROM Employee Where Title == "Sales Support Agent"
 1. `unique_invoice_countries.sql`: Provide a query showing a unique/distinct list of billing countries from the Invoice table.
+answer:  SELECT DISTINCT BillingCountry FROM Invoice
 1. `sales_agent_invoices.sql`: Provide a query that shows the invoices associated with each sales agent. The resultant table should include the Sales Agent's full name.
 1. `invoice_totals.sql`: Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
 1. `total_invoices_{year}.sql`: How many Invoices were there in 2009 and 2011? 
