@@ -91,6 +91,7 @@ For each of the following exercises, provide the appropriate query. Yes, even th
 1. `non_usa_customers.sql`: Provide a query showing Customers (just their full names, customer ID and country) who are not in the US.
 answer: SELECT CustomerId as "ID",Country,FirstName ||' '|| LastName AS "FullName" From Customer WHERE Country !="USA"
 1. `brazil_customers.sql`: Provide a query only showing the Customers from Brazil.
+answer: SELECT * FROM Customer WHERE Country == "Brazil"
 1. `brazil_customers_invoices.sql`: Provide a query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country.
 1. `sales_agents.sql`: Provide a query showing only the Employees who are Sales Agents.
 1. `unique_invoice_countries.sql`: Provide a query showing a unique/distinct list of billing countries from the Invoice table.
