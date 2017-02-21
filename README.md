@@ -89,6 +89,7 @@ Install [DB Browser for SQLite](http://sqlitebrowser.org/), which is a free tool
 For each of the following exercises, provide the appropriate query. Yes, even the ones that are expressed in the form of questions. Everything from class and the [Sqlite Documentation](http://www.sqlite.org/) is fair game.
 
 1. `non_usa_customers.sql`: Provide a query showing Customers (just their full names, customer ID and country) who are not in the US.
+answer: SELECT CustomerId as "ID",Country,FirstName ||' '|| LastName AS "FullName" From Customer WHERE Country !="USA"
 1. `brazil_customers.sql`: Provide a query only showing the Customers from Brazil.
 1. `brazil_customers_invoices.sql`: Provide a query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country.
 1. `sales_agents.sql`: Provide a query showing only the Employees who are Sales Agents.
