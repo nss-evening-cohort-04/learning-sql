@@ -95,6 +95,7 @@ answer: SELECT * FROM Customer WHERE Country == "Brazil"
 1. `brazil_customers_invoices.sql`: Provide a query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country.
 answer: SELECT FirstName ||' '|| LastName as FullName, InvoiceId, InvoiceDate, BillingCountry   FROM Invoice JOIN Customer ON Invoice.CustomerId =Customer.CustomerId WHERE BillingCountry == "Brazil"
 1. `sales_agents.sql`: Provide a query showing only the Employees who are Sales Agents.
+answer:  SELECT * FROM Employee Where Title == "Sales Support Agent"
 1. `unique_invoice_countries.sql`: Provide a query showing a unique/distinct list of billing countries from the Invoice table.
 1. `sales_agent_invoices.sql`: Provide a query that shows the invoices associated with each sales agent. The resultant table should include the Sales Agent's full name.
 1. `invoice_totals.sql`: Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
