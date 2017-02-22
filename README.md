@@ -103,6 +103,9 @@ answer:  SELECT Employee.FirstName||' '||Employee.LastName as FullName, Invoice.
 1. `invoice_totals.sql`: Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
 answer:  SELECT Invoice.Total, Customer.FirstName||' '||Customer.LastName as CustomerName, Invoice.BillingCountry, Employee.FirstName||' '||Employee.LastName as AgentName FROM Invoice JOIN Customer ON  Invoice.CustomerId = Customer.CustomerId JOIN Employee ON  Customer.SupportRepId = Employee.EmployeeId
 1. `total_invoices_{year}.sql`: How many Invoices were there in 2009 and 2011? 
+answer: SELECT count(InvoiceId) FROM (SELECT  * FROM Invoice WHERE InvoiceDate LIKE "2009%" 
+UNION SELECT * FROM Invoice WHERE InvoiceDate LIKE "2010%"
+UNION SELECT * FROM Invoice WHERE InvoiceDate LIKE "2011%")
 1. `total_sales_{year}.sql`: What are the respective total sales for each of those years?
 1. `invoice_37_line_item_count.sql`: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
 1. `line_items_per_invoice.sql`: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: [GROUP BY](http://www.sqlite.org/lang_select.html#resultset)
