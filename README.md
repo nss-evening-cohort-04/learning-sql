@@ -120,7 +120,7 @@ answer:  SELECT InvoiceId, count(*) as NumberLines FROM InvoiceLine GROUP BY Inv
 1. `line_item_track.sql`: Provide a query that includes the purchased track name with each invoice line item.
 answer: SELECT Track.Name, InvoiceLine.InvoiceId FROM InvoiceLine JOIN Track ON InvoiceLine.TrackId = Track.TrackId
 1. `line_item_track_artist.sql`: Provide a query that includes the purchased track name AND artist name with each invoice line item.
-answer: SELECT Track.Name AS "Track Name",Artist.Name AS "Band Name", InvoiceLine.InvoiceLineId FROM (InvoiceLine JOIN Track ON InvoiceLine.TrackId = Track.TrackId JOIN Album ON Track.AlbumId = Album.AlbumId JOIN Artist ON Album.ArtistId = Artist.ArtistId)
+answer: SELECT Track.Name AS "Track Name",Artist.Name AS "Band Name", InvoiceLine.* FROM (InvoiceLine JOIN Track ON InvoiceLine.TrackId = Track.TrackId JOIN Album ON Track.AlbumId = Album.AlbumId JOIN Artist ON Album.ArtistId = Artist.ArtistId)
 1. `country_invoices.sql`: Provide a query that shows the # of invoices per country. HINT: [GROUP BY](http://www.sqlite.org/lang_select.html#resultset)
 1. `playlists_track_count.sql`: Provide a query that shows the total number of tracks in each playlist. The Playlist name should be include on the resulant table.
 1. `tracks_no_id.sql`: Provide a query that shows all the Tracks, but displays no IDs. The result should include the Album name, Media type and Genre.
