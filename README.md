@@ -99,6 +99,7 @@ answer:  SELECT * FROM Employee Where Title == "Sales Support Agent"
 1. `unique_invoice_countries.sql`: Provide a query showing a unique/distinct list of billing countries from the Invoice table.
 answer:  SELECT DISTINCT BillingCountry FROM Invoice
 1. `sales_agent_invoices.sql`: Provide a query that shows the invoices associated with each sales agent. The resultant table should include the Sales Agent's full name.
+answer:  SELECT Employee.FirstName||' '||Employee.LastName as FullName, Invoice.InvoiceId FROM Invoice JOIN Customer ON  Invoice.CustomerId = Customer.CustomerId JOIN Employee ON  Customer.SupportRepId = Employee.EmployeeId
 1. `invoice_totals.sql`: Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
 1. `total_invoices_{year}.sql`: How many Invoices were there in 2009 and 2011? 
 1. `total_sales_{year}.sql`: What are the respective total sales for each of those years?
