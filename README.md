@@ -152,3 +152,4 @@ i.InvoiceDate) as PurchaseYear  FROM (Invoice as i JOIN InvoiceLine as il ON i.I
 answer:  SELECT art.Name as ArtistName,count(i.InvoiceId) as PurchaseCount,strftime('%Y', 
 i.InvoiceDate) as PurchaseYear  FROM (Invoice as i JOIN InvoiceLine as il ON i.InvoiceId=il.InvoiceId JOIN Track as t ON il.TrackId = t.TrackId JOIN Album as alb ON t.AlbumId = alb.AlbumId JOIN Artist as art ON alb.ArtistID=art.ArtistId) GROUP BY art.Name ORDER BY PurchaseCount DESC LIMIT 3
 1. `top_media_type.sql`: Provide a query that shows the most purchased Media Type.
+answer: SELECT mt.Name,count(i.InvoiceId) as PurchaseCount  FROM (Invoice as i JOIN InvoiceLine as il ON i.InvoiceId=il.InvoiceId JOIN Track as t ON il.TrackId = t.TrackId JOIN MediaType as mt ON t.MediaTypeId=mt.MediaTypeId) GROUP BY mt.Name ORDER BY PurchaseCount DESC LIMIT 1
