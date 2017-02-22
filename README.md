@@ -107,6 +107,12 @@ answer: SELECT count(InvoiceId) FROM (SELECT  * FROM Invoice WHERE InvoiceDate L
 UNION SELECT * FROM Invoice WHERE InvoiceDate LIKE "2010%"
 UNION SELECT * FROM Invoice WHERE InvoiceDate LIKE "2011%")
 1. `total_sales_{year}.sql`: What are the respective total sales for each of those years?
+SELECT * FROM (SELECT  sum(Invoice.Total), strftime('%Y', 
+Invoice.InvoiceDate) as Year  FROM Invoice WHERE InvoiceDate LIKE "2009%" 
+UNION SELECT  sum(Invoice.Total), strftime('%Y', 
+Invoice.InvoiceDate) as Year FROM Invoice WHERE InvoiceDate LIKE "2010%"
+UNION SELECT  sum(Invoice.Total), strftime('%Y', 
+Invoice.InvoiceDate) as Year FROM Invoice WHERE InvoiceDate LIKE "2011%") 
 1. `invoice_37_line_item_count.sql`: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
 1. `line_items_per_invoice.sql`: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: [GROUP BY](http://www.sqlite.org/lang_select.html#resultset)
 1. `line_item_track.sql`: Provide a query that includes the purchased track name with each invoice line item.
