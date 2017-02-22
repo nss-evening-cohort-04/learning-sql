@@ -139,8 +139,12 @@ answer: SELECT e.FirstName||' '||e.LastName as AgentFullName, sum(i.Total) as To
 1. `sales_agent_customer_count.sql`: Provide a query that shows the count of customers assigned to each sales agent.
 answer:  SELECT SupportRepId,count(DISTINCT CustomerId) as CustomerCount FROM Customer GROUP BY SupportRepId
 1. `sales_per_country.sql`: Provide a query that shows the total sales per country.
+answer:  SELECT BillingCountry,sum(Total) as TotalSales FROM Invoice GROUP BY BillingCountry
 1. `top_country.sql`: Which country's customers spent the most?
+answer: SELECT BillingCountry,sum(Total) as TotalSales FROM Invoice GROUP BY BillingCountry ORDER BY TotalSales DESC LIMIT 1
 1. `top_2013_track.sql`: Provide a query that shows the most purchased track of 2013.
+answer:  SELECT t.Name as TrackName,count(i.InvoiceId) as PurchaseCount,strftime('%Y', 
+i.InvoiceDate) as PurchaseYear  FROM (Invoice as i JOIN InvoiceLine as il ON i.InvoiceId=il.InvoiceId JOIN Track as t ON il.TrackId = t.TrackId ) WHERE i.InvoiceDate Like "2013%" GROUP BY t.Name ORDER BY PurchaseCount DESC LIMIT 5
 1. `top_5_tracks.sql`: Provide a query that shows the top 5 most purchased tracks over all.
 1. `top_3_artists.sql`: Provide a query that shows the top 3 best selling artists.
 1. `top_media_type.sql`: Provide a query that shows the most purchased Media Type.
