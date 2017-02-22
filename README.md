@@ -114,6 +114,7 @@ Invoice.InvoiceDate) as Year FROM Invoice WHERE InvoiceDate LIKE "2010%"
 UNION SELECT  sum(Invoice.Total), strftime('%Y', 
 Invoice.InvoiceDate) as Year FROM Invoice WHERE InvoiceDate LIKE "2011%") 
 1. `invoice_37_line_item_count.sql`: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
+answer:  SELECT count(*) FROM InvoiceLine WHERE InvoiceId == "37"
 1. `line_items_per_invoice.sql`: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: [GROUP BY](http://www.sqlite.org/lang_select.html#resultset)
 1. `line_item_track.sql`: Provide a query that includes the purchased track name with each invoice line item.
 1. `line_item_track_artist.sql`: Provide a query that includes the purchased track name AND artist name with each invoice line item.
