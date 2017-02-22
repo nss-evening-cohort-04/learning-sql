@@ -146,5 +146,7 @@ answer: SELECT BillingCountry,sum(Total) as TotalSales FROM Invoice GROUP BY Bil
 answer:  SELECT t.Name as TrackName,count(i.InvoiceId) as PurchaseCount,strftime('%Y', 
 i.InvoiceDate) as PurchaseYear  FROM (Invoice as i JOIN InvoiceLine as il ON i.InvoiceId=il.InvoiceId JOIN Track as t ON il.TrackId = t.TrackId ) WHERE i.InvoiceDate Like "2013%" GROUP BY t.Name ORDER BY PurchaseCount DESC LIMIT 5
 1. `top_5_tracks.sql`: Provide a query that shows the top 5 most purchased tracks over all.
+answer:  SELECT t.Name as TrackName,count(i.InvoiceId) as PurchaseCount,strftime('%Y', 
+i.InvoiceDate) as PurchaseYear  FROM (Invoice as i JOIN InvoiceLine as il ON i.InvoiceId=il.InvoiceId JOIN Track as t ON il.TrackId = t.TrackId ) GROUP BY t.Name ORDER BY PurchaseCount DESC LIMIT 5
 1. `top_3_artists.sql`: Provide a query that shows the top 3 best selling artists.
 1. `top_media_type.sql`: Provide a query that shows the most purchased Media Type.
