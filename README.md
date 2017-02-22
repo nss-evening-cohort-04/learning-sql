@@ -128,13 +128,16 @@ SELECT p.Name, count(Distinct pt.TrackId) as TrackCount FROM Playlist as p JOIN 
 1. `tracks_no_id.sql`: Provide a query that shows all the Tracks, but displays no IDs. The result should include the Album name, Media type and Genre.
 answer:  SELECT t.Name as TrackName,a.Title as AlbumTitle, mt.Name as MediaType, g.Name as Genre FROM (Track as t JOIN Album as a ON t.AlbumId = a.AlbumId JOIN MediaType as mt ON t.MediaTypeId = mt.MediaTypeId JOIN Genre as g ON t.GenreId = g.GenreId )
 1. `invoices_line_item_count.sql`: Provide a query that shows all Invoices but includes the # of invoice line items.
+answer:  SELECT i.*, count(il.InvoiceLineId) as LineCount FROM (Invoice as i JOIN InvoiceLine as il ON i.InvoiceId = il.InvoiceId) GROUP BY i.InvoiceId
 1. `sales_agent_total_sales.sql`: Provide a query that shows total sales made by each sales agent.
+answer: SELECT e.FirstName||' '||e.LastName as AgentFullName, sum(i.Total) as TotalSales FROM (Invoice as i JOIN Customer as c ON i.CustomerId=c.CustomerId JOIN Employee as e ON c.SupportRepId=e.employeeId) GROUP BY e.employeeId
 1. `top_2009_agent.sql`: Which sales agent made the most in sales in 2009?
-
     > **Hint:** Use the [MAX](https://www.sqlite.org/lang_aggfunc.html#maxggunc) function on a [subquery](http://beginner-sql-tutorial.com/sql-subquery.htm).
-
-1. `top_agent.sql`: Which sales agent made the most in sales over all?
+SELECT e.FirstName||' '||e.LastName as AgentFullName, sum(i.Total) as TotalSales FROM (Invoice as i JOIN Customer as c ON i.CustomerId=c.CustomerId JOIN Employee as e ON c.SupportRepId=e.employeeId) WHERE InvoiceDate LIKE "2009%" GROUP BY e.employeeId ORDER BY TotalSales DESC LIMIT 1
+1. `top_agent.sql`: Which sales agent made the most in sales over all
+answer: SELECT e.FirstName||' '||e.LastName as AgentFullName, sum(i.Total) as TotalSales FROM (Invoice as i JOIN Customer as c ON i.CustomerId=c.CustomerId JOIN Employee as e ON c.SupportRepId=e.employeeId) GROUP BY e.employeeId Limit 1
 1. `sales_agent_customer_count.sql`: Provide a query that shows the count of customers assigned to each sales agent.
+answer:  SELECT SupportRepId,count(DISTINCT CustomerId) as CustomerCount FROM Customer GROUP BY SupportRepId
 1. `sales_per_country.sql`: Provide a query that shows the total sales per country.
 1. `top_country.sql`: Which country's customers spent the most?
 1. `top_2013_track.sql`: Provide a query that shows the most purchased track of 2013.
