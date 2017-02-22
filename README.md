@@ -124,7 +124,9 @@ answer: SELECT Track.Name AS "Track Name",Artist.Name AS "Band Name", InvoiceLin
 1. `country_invoices.sql`: Provide a query that shows the # of invoices per country. HINT: [GROUP BY](http://www.sqlite.org/lang_select.html#resultset)
 answer: SELECT DISTINCT count(*) as InvoiceCount, BillingCountry  FROM Invoice GROUP BY BillingCountry
 1. `playlists_track_count.sql`: Provide a query that shows the total number of tracks in each playlist. The Playlist name should be include on the resulant table.
+SELECT p.Name, count(Distinct pt.TrackId) as TrackCount FROM Playlist as p JOIN PlaylistTrack as pt ON p.PlaylistId = pt.PlaylistId GROUP BY pt.PlaylistId
 1. `tracks_no_id.sql`: Provide a query that shows all the Tracks, but displays no IDs. The result should include the Album name, Media type and Genre.
+answer:  SELECT t.Name as TrackName,a.Title as AlbumTitle, mt.Name as MediaType, g.Name as Genre FROM (Track as t JOIN Album as a ON t.AlbumId = a.AlbumId JOIN MediaType as mt ON t.MediaTypeId = mt.MediaTypeId JOIN Genre as g ON t.GenreId = g.GenreId )
 1. `invoices_line_item_count.sql`: Provide a query that shows all Invoices but includes the # of invoice line items.
 1. `sales_agent_total_sales.sql`: Provide a query that shows total sales made by each sales agent.
 1. `top_2009_agent.sql`: Which sales agent made the most in sales in 2009?
