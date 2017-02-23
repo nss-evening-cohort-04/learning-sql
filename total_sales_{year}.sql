@@ -1,0 +1,1 @@
+SELECT SUM(CASE WHEN InvoiceDate LIKE "2009%" THEN Total END) AS "Total 2009", SUM(CASE WHEN InvoiceDate LIKE "2011%" THEN Total END) AS "Total 2011" FROM Invoice
