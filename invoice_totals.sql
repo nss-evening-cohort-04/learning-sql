@@ -1,0 +1,1 @@
+select InvCust.Total as Total, InvCust.FirstName || " " || InvCust.LastName as "Customer Name", InvCust.BillingCountry as Country, Employee.FirstName || " " || Employee.LastName as "Sales Agent" from (select * from Invoice join Customer on Invoice.CustomerId == Customer.CustomerId) as InvCust join Employee on InvCust.SupportRepId == Employee.EmployeeId

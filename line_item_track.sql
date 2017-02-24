@@ -1,0 +1,1 @@
+select Track.Name, InvoiceLine.* from InvoiceLine join Track on InvoiceLine.TrackId == Track.TrackId
