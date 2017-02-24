@@ -1,0 +1,1 @@
+select BillingCountry,count(*) AS "# of Invoices" from Invoice Group By BillingCountry

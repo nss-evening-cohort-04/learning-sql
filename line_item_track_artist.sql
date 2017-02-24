@@ -1,0 +1,1 @@
+select InvTrack.InvoiceLineId, InvTrack.InvoiceId, InvTrack.TrackId, InvTrack.UnitPrice, InvTrack.Quantity, Album.Title, InvTrack.Name from (select * from InvoiceLine join Track on InvoiceLine.TrackId == Track.TrackId) as InvTrack join Album on InvTrack.AlbumId == Album.AlbumId

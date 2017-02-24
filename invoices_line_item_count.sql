@@ -1,0 +1,1 @@
+select InvoiceId, count(*) as "# of Line Items" from InvoiceLine Group By InvoiceId

@@ -1,0 +1,1 @@
+select FirstName || " " || LastName as "Full Name", InvoiceId, InvoiceDate, BillingCountry from (select * from Invoice JOIN Customer ON Invoice.CustomerId == Customer.CustomerId) where BillingCountry == "Brazil"
