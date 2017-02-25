@@ -1,8 +1,11 @@
 /*26_top_3_artists.sql: Provide a query that shows the top 3 best selling artists.*/
-SELECT Track.Name, Count(Track.Name) AS "Count"
-FROM Invoice
-JOIN InvoiceLine ON Invoice.InvoiceId == InvoiceLine.InvoiceId
+SELECT "Artist Name", "Songs Sold"
+FROM
+(SELECT Artist.Name AS "Artist Name", Count(Track.TrackId) AS "Songs Sold"
+FROM InvoiceLine
 JOIN Track ON InvoiceLine.TrackId == Track.TrackId
 JOIN Album ON Track.AlbumId == Album.AlbumId
-GROUP BY Track.Name
-ORDER BY ""
+JOIN Artist ON Album.ArtistId == Artist.ArtistId
+GROUP BY "Artist Name"
+ORDER BY "Songs Sold" DESC
+LIMIT 3)
