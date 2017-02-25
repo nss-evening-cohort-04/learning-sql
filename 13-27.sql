@@ -50,16 +50,39 @@ SON y.GenreId == Genre.GenreId
 
 #17. invoices_line_item_count.sql: Provide a query that shows all Invoices but includes the # of invoice line items.
 
-
+SELECT COUNT(InvoiceLineId) AS NumberOfInvoiceLineItems, Invoice.InvoiceId AS Invoice 
+FROM InvoiceLine 
+JOIN Invoice ON Invoice.InvoiceId ==  InvoiceLine.InvoiceId 
+GROUP BY Invoice.InvoiceId
 
 #18. sales_agent_total_sales.sql: Provide a query that shows total sales made by each sales agent.
 
-
+SELECT FirstName ||"  "|| LastName AS SalesAgentName, SUM(Total) AS TotalSales 
+FROM(
+	SELECT * FROM(
+		SELECT CustomerID, SupportRepId AS EmployeeId FROM Customer) 
+	AS x 
+	JOIN Employee ON x.EmployeeId == Employee.EmployeeId) 
+AS Y 
+JOIN Invoice ON Invoice.CustomerId == y.CustomerId 
+GROUP BY EmployeeId
 
 #19. top_2009_agent.sql: Which sales agent made the most in sales in 2009?
 #Hint: Use the MAX function on a subquery.
 
-
+SELECT MAX("SUM(Total)"), FullName 
+FROM(
+	SELECT SUM(Total),FirstName||" "||LastName AS FullName 
+	FROM(
+		SELECT * 
+		FROM(
+			SELECT CustomerID, SupportRepId AS EmployeeId 
+			FROM Customer) 
+		AS x JOIN Employee ON x.EmployeeId == Employee.EmployeeId) 
+	AS Y JOIN Invoice ON Invoice.CustomerId == y.CustomerId 
+	WHERE Invoice.InvoiceDate 
+	LIKE "2009%" 
+	GROUP BY EmployeeId)
 
 #20. top_agent.sql: Which sales agent made the most in sales over all?
 
