@@ -1,4 +1,4 @@
-SELECT SUM(InvoiceId), Agent 
+SELECT SUM(Total), Agent 
 FROM Invoice 
 JOIN 
 	(SELECT CustomerId, Agent 

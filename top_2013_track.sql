@@ -8,7 +8,7 @@ JOIN
 		FROM Invoice
 		WHERE strftime('%Y',InvoiceDate) in ('2013'))
 	GROUP BY Trackid
-	ORDER BY Hits
+	ORDER BY Hits DESC
 	LIMIT 1) AS MaxHit
 ON Track.TrackId == MaxHit.TrackId
 	

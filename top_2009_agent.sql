@@ -1,6 +1,6 @@
-SELECT MAX(Invoice_2009), Agent
+SELECT MAX(Sale_2009), Agent
 FROM
-	(SELECT COUNT(InvoiceId) AS Invoice_2009, Agent 
+	(SELECT SUM(Total) AS Sale_2009, Agent 
 	FROM Invoice 
 	JOIN 
 		(SELECT CustomerId, Agent 

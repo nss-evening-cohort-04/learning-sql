@@ -4,7 +4,7 @@ JOIN
 	(SELECT COUNT(TrackId) AS Hits, TrackId
 	FROM InvoiceLine
 	GROUP BY Trackid
-	ORDER BY Hits
+	ORDER BY Hits DESC
 	LIMIT 5) AS TopHit
 ON Track.TrackId == TopHit.TrackId
 	
