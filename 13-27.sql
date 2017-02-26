@@ -1,4 +1,4 @@
-#Skipped 9
+#9 - Can do them separately, but can you do that in one table?
 
 #13. line_item_track_artist.sql: Provide a query that includes the purchased track name AND artist name with each invoice line item.
 
@@ -116,18 +116,89 @@ GROUP BY BillingCountry
 
 #23. top_country.sql: Which country's customers spent the most?
 
-
+SELECT MAX(SumOfTotal), BillingCountry 
+FROM(
+	SELECT SUM(Total) As SumOfTotal, BillingCountry 
+	FROM Invoice 
+	GROUP BY BillingCountry) 
+AS X
 
 #24. top_2013_track.sql: Provide a query that shows the most purchased track of 2013.
 
-
+SELECT MAX(y.TrackCount), y.TrackId 
+FROM(
+	SELECT COUNT(TrackId) AS TrackCount, TrackId 
+	FROM(
+		SELECT * 
+		FROM Invoice 
+		JOIN InvoiceLine 
+		ON Invoice.InvoiceId == InvoiceLine.InvoiceId 
+		WHERE InvoiceDate 
+		LIKE "2013%") 
+	AS X GROUP BY TrackId) 
+AS Y
 
 #25. top_5_tracks.sql: Provide a query that shows the top 5 most purchased tracks over all.
 
-
+SELECT * 
+FROM(
+	SELECT COUNT(TrackId) AS TrackCount, TrackId 
+	FROM(
+		SELECT * 
+		FROM Invoice 
+		JOIN InvoiceLine 
+		ON Invoice.InvoiceId == InvoiceLine.InvoiceId) 
+	AS X 
+	GROUP BY TrackId) 
+ORDER BY TrackCount DESC LIMIT 5
 
 #26. top_3_artists.sql: Provide a query that shows the top 3 best selling artists.
 
+SELECT * 
+FROM(
+	SELECT COUNT(TrackId) AS TrackCount, ArtistId, Name 
+	FROM(
+		SELECT * 
+		FROM(
+			SELECT * 
+			FROM(
+				SELECT * 
+				FROM(
+					SELECT * 
+					FROM Album 
+					JOIN Artist 
+					ON Album.ArtistId == Artist.ArtistId) 
+				AS X 
+				JOIN Track 
+				ON x.AlbumId == Track.AlbumId) 
+			AS Y 
+			JOIN InvoiceLine 
+			ON y.TrackId == InvoiceLine.TrackId) 
+		AS Z) 
+	GROUP BY ArtistID) 
+ORDER BY TrackCount 
+DESC LIMIT 3
 
+#Iron Maiden, U2, Metallica
 
 #27. top_media_type.sql: Provide a query that shows the most purchased Media Type.
+
+SELECT * 
+FROM(
+	SELECT COUNT(MediaTypeId) AS TopMedia, Name 
+	FROM(
+		SELECT * 
+		FROM(
+			SELECT * 
+			FROM MediaType 
+			JOIN Track 
+			ON MediaType. MediaTypeId == Track.MediaTypeId) 
+		AS X 
+		JOIN InvoiceLine 
+		ON x.TrackId == InvoiceLine.TrackId) 
+	AS Y 
+	GROUP BY MediaTypeId) 
+ORDER BY TopMedia 
+DESC LIMIT 1 
+
+#1976 MPEG (the largest one), 146 protected AAC, 111 MPEG-4, 4 purchased AAC, 3 AAC
