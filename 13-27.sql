@@ -110,7 +110,9 @@ AS Y GROUP BY EmployeeId
 
 #22. sales_per_country.sql: Provide a query that shows the total sales per country.
 
-
+SELECT SUM(Total) As SumOfTotal, BillingCountry 
+FROM Invoice 
+GROUP BY BillingCountry
 
 #23. top_country.sql: Which country's customers spent the most?
 
