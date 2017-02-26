@@ -5,9 +5,8 @@ SELECT
 	CUSTID.InvoiceId,
 	CUSTID.InvoiceDate, 
 	CUSTID.BillingCountry 
-FROM 
-	(SELECT 
-		* 
+FROM(
+	SELECT * 
 	FROM Customer 
 	JOIN Invoice 
 	ON Customer.CustomerId == Invoice.CustomerId) 
