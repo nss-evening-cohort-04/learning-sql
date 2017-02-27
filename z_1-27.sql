@@ -122,16 +122,35 @@ FROM InvoiceLine 13
 
 #13. line_item_track_artist.sql: Provide a query that includes the purchased track name AND artist name with each invoice line item.
 
-SELECT z.InvoiceLineId AS InvoiceLineId, z.TrackName AS TrackName, Artist.Name AS ArtistName 
-FROM
-	(SELECT y.InvoiceLineId AS InvoiceLineId, y.TrackName AS TrackName, Album.ArtistId AS ArtistId, Album.AlbumId 
-	FROM
-		(SELECT InvoiceLineId, Track.Name AS TrackName, Track.AlbumId 
-		FROM
-			(SELECT InvoiceLineId, TrackId FROM InvoiceLine) 
-			AS X JOIN Track ON x.TrackId == Track.TrackId) 
-		AS Y JOIN Album ON y.AlbumId == Album.AlbumId) 
-	AS Z JOIN Artist ON z.ArtistId== Artist.ArtistId
+SELECT 
+	z.InvoiceLineId AS InvoiceLineId, 
+	z.TrackName AS TrackName, 
+	Artist.Name AS ArtistName 
+FROM(
+	SELECT 
+		y.InvoiceLineId AS InvoiceLineId, 
+		y.TrackName AS TrackName, 
+		Album.ArtistId AS ArtistId, 
+		Album.AlbumId 
+	FROM(
+		SELECT 
+			InvoiceLineId, 
+			Track.Name AS TrackName, 
+			Track.AlbumId 
+		FROM(
+			SELECT 
+				InvoiceLineId, 
+				TrackId 
+				FROM InvoiceLine) 
+			AS X 
+			JOIN Track 
+			ON x.TrackId == Track.TrackId) 
+		AS Y 
+		JOIN Album 
+		ON y.AlbumId == Album.AlbumId) 
+	AS Z 
+	JOIN Artist 
+	ON z.ArtistId== Artist.ArtistId
 
 #14. country_invoices.sql: Provide a query that shows the # of invoices per country. HINT: GROUP BY
 
@@ -141,17 +160,24 @@ GROUP BY BillingCountry
 
 #15. playlists_track_count.sql: Provide a query that shows the total number of tracks in each playlist. The Playlist name should be include on the resulant table.
 
-SELECT COUNT(TrackId) AS TotalNumberOfTracks, x.PlaylistId AS PlaylistId, Name AS PlaylistName 
+SELECT 
+	COUNT(TrackId) AS TotalNumberOfTracks, 
+	x.PlaylistId AS PlaylistId, 
+	Name AS PlaylistName 
 FROM(
-	SELECT PlaylistId, Name FROM Playlist
-	) AS X 
+	SELECT PlaylistId, Name 
+	FROM Playlist) 
+AS X 
 JOIN PlaylistTrack 
 ON x.PlaylistId == PlaylistTrack.PlaylistId 
 GROUP BY x.PlaylistId
 
 #16. tracks_no_id.sql: Provide a query that shows all the Tracks, but displays no IDs. The result should include the Album name, Media type and Genre.
 
-SELECT y.Title AS "Album Name",Genre.Name AS "Genre Name", y."Name:1" AS "Media Type"
+SELECT 
+	y.Title AS "Album Name",
+	Genre.Name AS "Genre Name", 
+	y."Name:1" AS "Media Type"
 FROM
 	(SELECT * 
 	FROM
@@ -165,26 +191,35 @@ FROM
 	ON MediaType.MediaTypeId == x.MediaTypeId) 
 AS Y 
 JOIN Genre 
-SON y.GenreId == Genre.GenreId
+ON y.GenreId == Genre.GenreId
 
 
 #17. invoices_line_item_count.sql: Provide a query that shows all Invoices but includes the # of invoice line items.
 
-SELECT COUNT(InvoiceLineId) AS NumberOfInvoiceLineItems, Invoice.InvoiceId AS Invoice 
+SELECT 
+	COUNT(InvoiceLineId) AS NumberOfInvoiceLineItems, 
+	Invoice.InvoiceId AS Invoice 
 FROM InvoiceLine 
-JOIN Invoice ON Invoice.InvoiceId ==  InvoiceLine.InvoiceId 
+JOIN Invoice 
+ON Invoice.InvoiceId ==  InvoiceLine.InvoiceId 
 GROUP BY Invoice.InvoiceId
 
 #18. sales_agent_total_sales.sql: Provide a query that shows total sales made by each sales agent.
 
-SELECT FirstName ||"  "|| LastName AS SalesAgentName, SUM(Total) AS TotalSales 
+SELECT 
+	FirstName ||"  "|| LastName AS SalesAgentName, 
+	SUM(Total) AS TotalSales 
 FROM(
-	SELECT * FROM(
-		SELECT CustomerID, SupportRepId AS EmployeeId FROM Customer) 
+	SELECT * 
+	FROM(
+		SELECT CustomerID, SupportRepId AS EmployeeId 
+		FROM Customer) 
 	AS x 
-	JOIN Employee ON x.EmployeeId == Employee.EmployeeId) 
+	JOIN Employee 
+	ON x.EmployeeId == Employee.EmployeeId) 
 AS Y 
-JOIN Invoice ON Invoice.CustomerId == y.CustomerId 
+JOIN Invoice 
+ON Invoice.CustomerId == y.CustomerId 
 GROUP BY EmployeeId
 
 #19. top_2009_agent.sql: Which sales agent made the most in sales in 2009?
@@ -192,14 +227,20 @@ GROUP BY EmployeeId
 
 SELECT MAX("SUM(Total)"), FullName 
 FROM(
-	SELECT SUM(Total),FirstName||" "||LastName AS FullName 
+	SELECT 
+		SUM(Total),
+		FirstName||" "||LastName AS FullName 
 	FROM(
 		SELECT * 
 		FROM(
 			SELECT CustomerID, SupportRepId AS EmployeeId 
 			FROM Customer) 
-		AS x JOIN Employee ON x.EmployeeId == Employee.EmployeeId) 
-	AS Y JOIN Invoice ON Invoice.CustomerId == y.CustomerId 
+		AS x 
+		JOIN Employee 
+		ON x.EmployeeId == Employee.EmployeeId) 
+	AS Y 
+	JOIN Invoice 
+	ON Invoice.CustomerId == y.CustomerId 
 	WHERE Invoice.InvoiceDate 
 	LIKE "2009%" 
 	GROUP BY EmployeeId)
@@ -208,24 +249,37 @@ FROM(
 
 SELECT MAX("SUM(Total)"), FullName 
 FROM(
-	SELECT SUM(Total),FirstName||" "||LastName AS FullName 
+	SELECT 
+		SUM(Total),
+		FirstName||" "||LastName AS FullName 
 	FROM(
 		SELECT * 
 		FROM(
-			SELECT CustomerID, SupportRepId AS EmployeeId FROM Customer) 
-		AS x JOIN Employee ON x.EmployeeId == Employee.EmployeeId) 
-	AS Y JOIN Invoice ON Invoice.CustomerId == y.CustomerId 
+			SELECT 
+				CustomerID, 
+				SupportRepId AS EmployeeId 
+			FROM Customer) 
+		AS x 
+		JOIN Employee 
+		ON x.EmployeeId == Employee.EmployeeId) 
+	AS Y 
+	JOIN Invoice 
+	ON Invoice.CustomerId == y.CustomerId 
 	GROUP BY EmployeeId)
 
 #21. sales_agent_customer_count.sql: Provide a query that shows the count of customers assigned to each sales agent.
 
-SELECT  FirstName||" "||LastName AS FullName, COUNT(CustomerId) 
+SELECT  
+	FirstName||" "||LastName AS FullName, 
+	COUNT(CustomerId) 
 FROM(
 	SELECT * 
 	FROM(
 		SELECT CustomerID, SupportRepId AS EmployeeId 
 		FROM Customer) 
-	AS x JOIN Employee ON x.EmployeeId == Employee.EmployeeId) 
+	AS x J
+	OIN Employee 
+	ON x.EmployeeId == Employee.EmployeeId) 
 AS Y GROUP BY EmployeeId
 
 #22. sales_per_country.sql: Provide a query that shows the total sales per country.
@@ -321,4 +375,5 @@ FROM(
 ORDER BY TopMedia 
 DESC LIMIT 1 
 
-#1976 MPEG (the largest one), 146 protected AAC, 111 MPEG-4, 4 purchased AAC, 3 AAC
+#1976 MPEG (the largest one), 146 protected AAC, 
+#111 MPEG-4, 4 purchased AAC, 3 AAC
